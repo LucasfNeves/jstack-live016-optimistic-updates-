@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/ui/components/ui/Avatar";
-import { Switch } from "./switch";
+import { Switch } from "./Switch";
 
 const users = [
   {
