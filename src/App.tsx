@@ -1,4 +1,4 @@
-import { ModeToggle } from "./components/ui/ModeToglle";
+import { ModeToggle } from "./components/ModeToglle";
 
 export function App() {
   return (
