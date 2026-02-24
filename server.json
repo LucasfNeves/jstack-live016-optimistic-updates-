@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Lucas Neves",
+      "usersname": "LucasfNeves",
+      "blocked": true
+    },
+    {
+      "id": "2",
+      "name": "Lucas Neves",
+      "usersname": "LucasfNeves",
+      "blocked": false
+    },
+    {
+      "id": "3",
+      "name": "Lucas Neves",
+      "usersname": "LucasfNeves",
+      "blocked": false
+    }
+  ]
+}
