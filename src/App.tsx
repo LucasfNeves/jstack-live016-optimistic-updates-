@@ -1,10 +1,14 @@
-import { ModeToggle } from "./components/ModeToglle";
+import { Header } from "./ui/components/Header";
+import { UsersList } from "./ui/components/UsersList";
 
 export function App() {
   return (
-    <div className="App">
-      <h1>Hello World</h1>
-      <ModeToggle />
+    <div className="max-w-125 mx-auto mt-20">
+      <Header />
+
+      <main className="mt-10">
+        <UsersList />
+      </main>
     </div>
   );
 }

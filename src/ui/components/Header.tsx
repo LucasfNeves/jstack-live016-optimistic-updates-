@@ -1,9 +1,16 @@
-export function Hader() {
+import { ModeToggle } from "./ModeToglle";
+
+export function Header() {
   return (
-    <header className="w-full border-b">
-      <div className="container flex h-16 items-center justify-between">
-        <h1 className="text-lg font-bold">Vite UI</h1>
+    <header className="flex items-center justify-between">
+      <div>
+        <h1 className="text-3xl font-bold -tracking-wider">theusers</h1>
+        <small className="text-muted-foreground">
+          Gerencie os seus usuários
+        </small>
       </div>
+
+      <ModeToggle />
     </header>
   );
 }
