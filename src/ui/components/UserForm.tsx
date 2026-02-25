@@ -1,14 +1,53 @@
+import { useCreateUser } from "@/app/hooks/useCreateUser";
 import { Button } from "./ui/Button";
 import { Input } from "./ui/Input";
+import { useRef } from "react";
+import type React from "react";
+import { toast } from "sonner";
 
 export function UserForm() {
+  const { createUser, isPending } = useCreateUser();
+  const nameRef = useRef<HTMLInputElement>(null);
+  const usersnameRef = useRef<HTMLInputElement>(null);
+
+  const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    try {
+      const name = nameRef.current?.value;
+      const usersname = usersnameRef.current?.value;
+
+      if (!name || !usersname) {
+        return;
+      }
+
+      await createUser({ name, usersname, blocked: false });
+
+      toast.success("Usuário criado com sucesso!");
+
+      nameRef.current!.value = "";
+      usersnameRef.current!.value = "";
+    } catch {
+      toast.error("Erro ao criar usuário. Tente novamente.");
+    }
+  };
+
   return (
-    <form className="bg-accent/50 border border-muted p-4 rounded-md">
+    <form
+      onSubmit={handleSubmit}
+      className="bg-accent/50 border border-muted p-4 rounded-md"
+    >
       <div className="flex flex-col space-y-3 mb-4">
-        <Input placeholder="Name" />
-        <Input placeholder="@ no GitHub" />
+        <Input placeholder="Name" ref={nameRef} disabled={isPending} />
+        <Input
+          placeholder="@ no GitHub"
+          ref={usersnameRef}
+          disabled={isPending}
+        />
       </div>
-      <Button className="w-full">Cadastrar</Button>
+      <Button className="w-full" disabled={isPending}>
+        Cadastrar
+      </Button>
     </form>
   );
 }

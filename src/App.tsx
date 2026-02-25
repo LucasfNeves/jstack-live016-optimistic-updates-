@@ -5,6 +5,7 @@ import { queryClient } from "./app/lib/queryClient";
 import { ThemeProvider } from "./app/contexts/ThemeContext";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "./ui/components/Sonner";
 
 export function App() {
   return (
@@ -18,7 +19,7 @@ export function App() {
             <UsersList />
           </main>
         </div>
-
+        <Toaster />
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </ThemeProvider>

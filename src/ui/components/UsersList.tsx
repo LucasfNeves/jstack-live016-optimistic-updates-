@@ -2,9 +2,22 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/ui/components/ui/Avatar";
 import { Switch } from "./Switch";
 import { useUsers } from "@/app/hooks/useUsers";
 import { Skeleton } from "./Skeleton";
+import { toast } from "sonner";
+import { useEditUser } from "@/app/hooks/useEditUser";
 
 export function UsersList() {
   const { users, isLoading } = useUsers();
+  const { editUser } = useEditUser();
+
+  const handleBlockedChange = async (id: string, blocked: boolean) => {
+    try {
+      await editUser({ id, blocked });
+      toast.success("Status do usuário atualizado com sucesso!");
+    } catch {
+      toast.error("Erro ao atualizar status do usuário");
+    }
+  };
+
   return (
     <div className="space-y-4">
       {isLoading && (
@@ -35,7 +48,10 @@ export function UsersList() {
               <small className="text-muted-foreground">@{user.usersname}</small>
             </div>
           </div>
-          <Switch />
+          <Switch
+            checked={user.blocked}
+            onCheckedChange={(checked) => handleBlockedChange(user.id, checked)}
+          />
         </div>
       ))}
     </div>
