@@ -1,11 +1,19 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/ui/components/ui/Avatar";
 import { Switch } from "./Switch";
 import { useUsers } from "@/app/hooks/useUsers";
+import { Skeleton } from "./Skeleton";
 
 export function UsersList() {
-  const { users } = useUsers();
+  const { users, isLoading } = useUsers();
   return (
     <div className="space-y-4">
+      {isLoading && (
+        <>
+          <Skeleton className="h-16" />
+          <Skeleton className="h-16" />
+          <Skeleton className="h-16" />
+        </>
+      )}
       {users.map((user) => (
         <div
           key={user.id}
