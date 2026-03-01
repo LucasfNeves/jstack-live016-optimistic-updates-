@@ -10,26 +10,28 @@ export function UserForm() {
   const nameRef = useRef<HTMLInputElement>(null);
   const usersnameRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = async (event: React.SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    try {
-      const name = nameRef.current?.value;
-      const usersname = usersnameRef.current?.value;
+    const submit = async () => {
+      try {
+        const name = nameRef.current?.value;
+        const usersname = usersnameRef.current?.value;
 
-      if (!name || !usersname) {
-        return;
+        if (!name || !usersname) return;
+
+        await createUser({ name, usersname, blocked: false });
+
+        toast.success("Usuário criado com sucesso!");
+
+        nameRef.current!.value = "";
+        usersnameRef.current!.value = "";
+      } catch {
+        toast.error("Erro ao criar usuário. Tente novamente.");
       }
+    };
 
-      await createUser({ name, usersname, blocked: false });
-
-      toast.success("Usuário criado com sucesso!");
-
-      nameRef.current!.value = "";
-      usersnameRef.current!.value = "";
-    } catch {
-      toast.error("Erro ao criar usuário. Tente novamente.");
-    }
+    submit();
   };
 
   return (
@@ -38,14 +40,20 @@ export function UserForm() {
       className="bg-accent/50 border border-muted p-4 rounded-md"
     >
       <div className="flex flex-col space-y-3 mb-4">
-        <Input placeholder="Name" ref={nameRef} disabled={isPending} />
         <Input
+          type="text"
+          placeholder="Name"
+          ref={nameRef}
+          disabled={isPending}
+        />
+        <Input
+          type="text"
           placeholder="@ no GitHub"
           ref={usersnameRef}
           disabled={isPending}
         />
       </div>
-      <Button className="w-full" disabled={isPending}>
+      <Button type="submit" className="w-full" disabled={isPending}>
         Cadastrar
       </Button>
     </form>
